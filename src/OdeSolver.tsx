@@ -3,7 +3,6 @@ import { LineChart, Line, XAxis, YAxis } from "recharts";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { parse } from "mathjs"; // Usaremos mathjs para evaluar la función de manera segura
 
 // Función para resolver la ecuación diferencial usando el método de Euler
 const solveEuler = (f: (x: number, y: number) => number, x0: number, y0: number, h: number, n: number) => {
@@ -58,21 +57,13 @@ export default function ODECalculator() {
 
     // Función para evaluar la ecuación ingresada
     const evaluateFunction = (x: number, y: number): number => {
-        try {
-            // Usamos mathjs para evaluar la función ingresada
-            const scope = { x, y };
-            const parsedExpression = parse(equation);
-            return parsedExpression.evaluate(scope);
-        } catch (error) {
-            console.error("Error al evaluar la ecuación:", error);
-            return 0;
-        }
+        return x+y ;
     };
 
     // Función para calcular el valor exacto (esto depende de la ecuación exacta, aquí pongo un ejemplo)
     const exactValue = (x: number): number => {
         // Asumiendo una solución exacta, por ejemplo, y = e^x
-        return Math.exp(x);
+        return Math.exp(x) - x - 1 + y0;
     };
 
     const handleSolve = (solver: (f: (x: number, y: number) => number, x0: number, y0: number, h: number, n: number) => any) => {
